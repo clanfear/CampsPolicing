@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Complaints and the Social Control of Homelessness in Seattle</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Chuck Lanfear Lindsey Beach Karen Snedker" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# Complaints and the Social Control of Homelessness in Seattle
+### Chuck Lanfear<br>Lindsey Beach<br>Karen Snedker
+### January 17th, 2020
+
+---
+
+
+
+
+
+
+# Complaints as Social Control
+
+Research on social control typically focuses on...
+
+* Sanctioning by the public (informal social control)
+* Police-initiated contacts (formal social control)
+* Citizen-initiated police contacts (formal social control)&lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[[1] See Herring (2019) for a recent discussion.]
+
+--
+
+Complaining to the city is an alternate appeal to formal social control.
+
+* It defers responsibility to authorities
+* Agents are empowered to sanction, compel movement, and seize property
+* May be substitute or compliment for other social control forms
+
+---
+class: inverse
+
+# Data
+
+---
+## Tent Census
+
+In April through August of 2019, Karen Snedker's research team at Seattle Pacific University conducted a comprehensive census of tents for her tent cities project.
+
+---
+## Unauthorized Camping
+
+Seattle Customer Service Bureau handles most public complaints
+
+**Unauthorized camping** is a specific category
+* Does not encompass all complaints involving visible homelessness
+* We will explore other complaint types in future (e.g. illegal dumping)
+
+Most complaints made via *Find It, Fix It* mobile app
+* Introduced in late 2013
+* Use has increase exponentially since introduction
+
+We focus on data from 2016 to 2019 when unauthorized camping complaints via *Find It, Fix It* became common
+
+---
+## Police RMS Incidents
+
+SPD records all police contacts involving an offense in their records management system (RMS)
+* Exact geolocation
+* Detailed data on type of offense
+
+We use a complete record of all offense reports to generate beat-level measures:
+* Property offense
+* Violent offense
+* Public order offenses
+
+Today we focus on **property offenses**
+
+---
+## Customer Satisfaction Survey
+
+SPD conducts quarterly random phone surveys of individuals who called 911.
+* Excludes victims of serious crimes
+* On average 200 surveys per quarter
+* Covers 2006 through present
+* Geographically identified at police beat level
+
+Survey questions:
+* 3 questions on **fear of crime**
+* 10 on police efficacy.
+* Changes in perceptions due to 911 event
+* Race and gender
+
+We focus on **fear of crime**.
+
+---
+## ACS
+
+ACS 5-year estimates for tract-level population&lt;sup&gt;1&lt;/sup&gt;
+
+Used to calculate rates and adjust for population and density.
+
+Model-based approaches needed to match our spatial or temporal units.
+
+.footnote[[1] Census API issues prevented obtaining block group data.]
+
+---
+class: inverse
+# Tents, Crime, Fear, and Complaints
+
+---
+# Models
+
+One year of rolling tent census recording permits only cross-sectional analyses.
+* Only 51 police beats means low statistical power
+* Cross-section prevents analyzing change
+
+Results reported are holistic summaries from many model specifications representing different tradeoffs.
+* Negative binomial models with (rates) and without (counts) population offsets 
+* Linear models with rates and counts for conditionally normal variables
+
+---
+# Property and Violent Crime
+
+Tents not associated with counts of property or violent crimes.
+* No available statistical controls induce any relationship.
+
+Weakly associated with *rates* but effect driven entirely by very low population industrial beats (e.g. SoDo).
+* Industrial areas vulnerable to property crime are also suitable for camping.
+* Controlling for population eliminates relationship.
+
+*There is no evidence tents are associated with property crime.*
+
+---
+# Fear of Crime
+
+Fear of crime is predicted by violent crime.
+
+Fear is not associated with property crime.
+
+*Tents are also not associated with fear of crime.*
+
+---
+# Camping Complaints
+
+Unauthorized camping complaints are predicted by property crime, tent counts, and fear of crime
+* Not predicted by violent crime, conditional on fear.
+
+*Factors seemingly independent of visible homelessness predict complaints.*
+
+---
+# Complaints, Fear, and Crime
+
+Homelessness is associated with crime in the minds of the public, particularly property crime.
+* Property crime is not increasing substantially in Seattle
+* Visible homelessness appears to be increasing
+* Public discourse reflects increasing concerns with property crime
+
+Increasing visible homelessness has been accompanied by increases in unauthorized camping complaints.
+
+These complaints may represent attempts at crime control--an alternate form of formal social control.
+
+Thus, complaints may be patterned not by the underlying visible homeless population, but by the distribution of fear and property crime.
+
+Question: To what degree are increases in complaints driven by fear of crime and property crime?
+
+---
+# The Approach
+
+Neither fear nor property crime are predicted by tents.
+* If tents capture visible homelessness, then visible homelessness is conditionally independent of fear and property crime.
+* *Visible homeless is not a confounder.*
+
+.image-50[
+![](img/theoretical_model.svg)
+]
+
+We can thus estimate the relationships between fear and property crime and complaints.
+
+---
+## Data Analysis Process
+
+.image-full[
+![](img/data_process_beat_half.svg)
+]
+
+
+
+---
+### Multilevel Measurement Model
+
+.image-full[
+![](img/multilevel_measurement_model.svg)
+]
+
+---
+# Power-Reliability Tradeoff
+
+Fixed effects models need many time periods for power.
+
+Hierarchical measurement models need many respondents per unit for reliability.
+
+Half-years seems to be the sweet spot.
+
+![](img/reliability_power.svg)
+
+---
+# Areal Weighting
+
+.pull-left[
+Beats are not linked to any demographic variables.
+
+Census tracts and beats have different boundaries.
+
+Areal weighting can be used to interpolate census measures to beats.
+
+Areal weighting was also used to reconcile beat boundaries that change over time.
+
+Census population was extrapolated to 2019 and interpolated to half-years.
+
+These methods make moderate assumptions about distribution and growth in population.
+]
+.pull-right[
+.image-full[
+![](img/overlap_plot.svg)
+]
+]
+
+---
+# Modeling Strategy
+
+I use a negative binomial model with **fixed effects** and **time trends** at the beat-level.
+* Estimate per-resident complaint rate using population as exposure.
+
+Spatial lag of fear of crime to account for spatial dependence.
+* Cannot use endogenous spatial lag in exponential family models.
+* Prop crime and spatial lag of prop crime too highly correlated (~.64).
+
+Moran's I on residuals indicates no spatial dependence
+
+No temporal autocorrelation.
+
+---
+# Results
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jeecvyuenj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  /* table.margin.left */
+  margin-right: auto;
+  /* table.margin.right */
+  color: #333333;
+  font-size: 16px;
+  /* table.font.size */
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+  border-bottom-style: solid;
+  /* table.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table.border.bottom.color */
+}
+
+#jeecvyuenj .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-left-style: hidden;
+  /* heading.border.lr.style */
+  border-left-width: 1px;
+  /* heading.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* heading.border.lr.color */
+  border-right-style: hidden;
+  /* heading.border.lr.style */
+  border-right-width: 1px;
+  /* heading.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* heading.border.lr.color */
+}
+
+#jeecvyuenj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  /* heading.title.font.size */
+  font-weight: initial;
+  /* heading.title.font.weight */
+  padding-top: 4px;
+  /* heading.top.padding - not yet used */
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-bottom-width: 0;
+}
+
+#jeecvyuenj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  font-weight: initial;
+  /* heading.subtitle.font.weight */
+  padding-top: 0;
+  padding-bottom: 4px;
+  /* heading.bottom.padding - not yet used */
+  border-top-color: #FFFFFF;
+  /* table.background.color */
+  border-top-width: 0;
+}
+
+#jeecvyuenj .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* heading.border.bottom.color */
+}
+
+#jeecvyuenj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jeecvyuenj .gt_col_headings {
+  border-top-style: solid;
+  /* column_labels.border.top.style */
+  border-top-width: 2px;
+  /* column_labels.border.top.width */
+  border-top-color: #D3D3D3;
+  /* column_labels.border.top.color */
+  border-bottom-style: solid;
+  /* column_labels.border.bottom.style */
+  border-bottom-width: 2px;
+  /* column_labels.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* column_labels.border.bottom.color */
+  border-left-style: none;
+  /* column_labels.border.lr.style */
+  border-left-width: 1px;
+  /* column_labels.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+  border-right-style: none;
+  /* column_labels.border.lr.style */
+  border-right-width: 1px;
+  /* column_labels.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+}
+
+#jeecvyuenj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 100%;
+  /* column_labels.font.size */
+  font-weight: initial;
+  /* column_labels.font.weight */
+  text-transform: inherit;
+  /* column_labels.text_transform */
+  vertical-align: middle;
+  padding: 5px;
+  margin: 10px;
+  overflow-x: hidden;
+}
+
+#jeecvyuenj .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#jeecvyuenj .gt_group_heading {
+  padding: 8px;
+  /* row_group.padding */
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  text-transform: inherit;
+  /* row_group.text_transform */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  border-left-style: none;
+  /* row_group.border.left.style */
+  border-left-width: 1px;
+  /* row_group.border.left.width */
+  border-left-color: #D3D3D3;
+  /* row_group.border.left.color */
+  border-right-style: none;
+  /* row_group.border.right.style */
+  border-right-width: 1px;
+  /* row_group.border.right.width */
+  border-right-color: #D3D3D3;
+  /* row_group.border.right.color */
+  vertical-align: middle;
+}
+
+#jeecvyuenj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#jeecvyuenj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+  /* row.striping.background_color */
+}
+
+#jeecvyuenj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jeecvyuenj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jeecvyuenj .gt_row {
+  padding-top: 8px;
+  /* data_row.padding */
+  padding-bottom: 8px;
+  /* data_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  /* table_body.hlines.style */
+  border-top-width: 1px;
+  /* table_body.hlines.width */
+  border-top-color: #D3D3D3;
+  /* table_body.hlines.color */
+  border-left-style: none;
+  /* table_body.vlines.style */
+  border-left-width: 1px;
+  /* table_body.vlines.width */
+  border-left-color: #D3D3D3;
+  /* table_body.vlines.color */
+  border-right-style: none;
+  /* table_body.vlines.style */
+  border-right-width: 1px;
+  /* table_body.vlines.width */
+  border-right-color: #D3D3D3;
+  /* table_body.vlines.color */
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jeecvyuenj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* stub.background.color */
+  font-weight: initial;
+  /* stub.font.weight */
+  text-transform: inherit;
+  /* stub.text_transform */
+  border-right-style: solid;
+  /* stub.border.style */
+  border-right-width: 2px;
+  /* stub.border.width */
+  border-right-color: #D3D3D3;
+  /* stub.border.color */
+  padding-left: 12px;
+}
+
+#jeecvyuenj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jeecvyuenj .gt_first_summary_row {
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  /* summary_row.border.style */
+  border-top-width: 2px;
+  /* summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* summary_row.border.color */
+}
+
+#jeecvyuenj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jeecvyuenj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  /* grand_summary_row.border.style */
+  border-top-width: 6px;
+  /* grand_summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* grand_summary_row.border.color */
+}
+
+#jeecvyuenj .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #D3D3D3;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* table_body.border.bottom.color */
+}
+
+#jeecvyuenj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* footnotes.background.color */
+  border-bottom-style: none;
+  /* footnotes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* footnotes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* footnotes.border.bottom.color */
+  border-left-style: none;
+  /* footnotes.border.lr.color */
+  border-left-width: 2px;
+  /* footnotes.border.lr.color */
+  border-left-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+  border-right-style: none;
+  /* footnotes.border.lr.color */
+  border-right-width: 2px;
+  /* footnotes.border.lr.color */
+  border-right-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+}
+
+#jeecvyuenj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  /* footnotes.font.size */
+  padding: 4px;
+  /* footnotes.padding */
+}
+
+#jeecvyuenj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* source_notes.background.color */
+  border-bottom-style: none;
+  /* source_notes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* source_notes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* source_notes.border.bottom.color */
+  border-left-style: none;
+  /* source_notes.border.lr.style */
+  border-left-width: 2px;
+  /* source_notes.border.lr.style */
+  border-left-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+  border-right-style: none;
+  /* source_notes.border.lr.style */
+  border-right-width: 2px;
+  /* source_notes.border.lr.style */
+  border-right-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+}
+
+#jeecvyuenj .gt_sourcenote {
+  font-size: 90%;
+  /* source_notes.font.size */
+  padding: 4px;
+  /* source_notes.padding */
+}
+
+#jeecvyuenj .gt_left {
+  text-align: left;
+}
+
+#jeecvyuenj .gt_center {
+  text-align: center;
+}
+
+#jeecvyuenj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jeecvyuenj .gt_font_normal {
+  font-weight: normal;
+}
+
+#jeecvyuenj .gt_font_bold {
+  font-weight: bold;
+}
+
+#jeecvyuenj .gt_font_italic {
+  font-style: italic;
+}
+
+#jeecvyuenj .gt_super {
+  font-size: 65%;
+}
+
+#jeecvyuenj .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="jeecvyuenj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal gt_center" style>Complaint Rate Model Estimates</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_center gt_bottom_border" style>Beat intercepts and trends omitted</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"> </th>
+      <th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="3">Complaint Counts</th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Std. Est.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">SE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">p</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">Fear of Crime</td>
+      <td class="gt_row gt_right">0.075</td>
+      <td class="gt_row gt_right">0.027</td>
+      <td class="gt_row gt_right">0.006</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped">Fear of Crime (Sp. Lag)</td>
+      <td class="gt_row gt_right gt_striped">0.068</td>
+      <td class="gt_row gt_right gt_striped">0.029</td>
+      <td class="gt_row gt_right gt_striped">0.019</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Property Crime Count</td>
+      <td class="gt_row gt_right">0.275</td>
+      <td class="gt_row gt_right">0.060</td>
+      <td class="gt_row gt_right">0.000</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+---
+
+.image-full[
+![](img/fear_plot.svg)
+]
+
+---
+
+.image-full[
+![](img/property_plot.svg)
+]
+
+---
+# Summary
+
+Complaints to city services are a form of formal social control not unlike calls to police.
+
+Complaints are a function of:
+* Visible homelessness
+* Fear of Crime
+* Property Crime
+
+While visible homelessness is not associated with either property crime or fear of crime, complaints about visible homelessness are related to both.
+
+Property crime and fear of crime may contribute to excessive social control of this vulnerable population.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
