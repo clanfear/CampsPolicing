@@ -23,6 +23,7 @@ summary(complaints_nb_2016_int_splag)
 
 plot(complaints_nb_2016_int_splag)
 
+complaints_nb_2016_int_splag %>% broom::augment() %>% arrange(.resid)
 #beats_analysis_half %>% filter(year >= 2016) %>% select(n_camping_complaints, offense_property_rate,splag_offense_property_rate, splag_eb_fear_mi,
  #                                                         eb_fear_mi, eb_pe_mi) %>% cor()
 # Spatial autocorrelation
