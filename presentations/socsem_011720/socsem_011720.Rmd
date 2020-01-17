@@ -421,7 +421,7 @@ Property crime and fear of crime may contribute to excessive social control of t
 .pull-left[
 Additional Measures
 * Sweep Journals
-* All Home Point in Time Count
+* Point in Time Count
 * Police Efficacy
 * Public Order Offenses
 * Illegal dumping and needles<sup>1</sup>
