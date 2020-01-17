@@ -262,6 +262,11 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+.image-center img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .title-slide {
   background-image: url(https://clanfear.github.io/centrism_socsem/slides/img/UWSocBG1_white.svg), url(https://clanfear.github.io/centrism_socsem/slides/img/title_slide_img.png);
   background-position: center center, center bottom;
