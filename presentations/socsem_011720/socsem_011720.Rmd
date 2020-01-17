@@ -64,6 +64,9 @@ But is the initial premise even valid?
 
 A [report by the Guardian](https://www.theguardian.com/us-news/2018/may/23/homeless-villages-crime-rate-seattle-portland) and an unpublished study by Dartmouth applied economics students both found negative associations between crime and tent cities and tiny house villages in Seattle.
 
+.image-center[
+![](img/health_conditions.PNG)
+]
 ---
 # Fear of Crime
 
