@@ -331,11 +331,30 @@ Census population was extrapolated to 2019 and interpolated to half-years.
 ]
 
 ---
+# Modeling Challenges
+
+We want to estimate relationship between complaints fear of crime and property crime.
+
+But nothing occurs in a vacuum, particularly not ecological processes.
+
+Temporal Autocorrelation
+* Increasing adoption of Find It, Fix It
+* Growth of public discourse on homelessness
+
+Spatial Dependence
+* Complaints come from a mobile app--people traverse boundaries
+
+Confounding
+* Propensity to engage in social control varies
+* Physical and social characteristics impact camping, property crime opportunities, and perceptions of fear
+
+---
 # Modeling Strategy
 
 We use a negative binomial model with beat-specific **fixed effects** and **time trends**.
-* Estimate per-resident complaint rate using population as exposure.
-* Models without exposure offset replicate results.
+* Estimate per-resident complaint rate using population as exposure.&lt;sup&gt;1&lt;/sup&gt;
+* Fixed effects address stable beat characteristics
+* Trends address "natural" growth in complaints
 
 Spatial lag of fear of crime to account for spatial dependence.
 * Cannot use endogenous spatial lag in exponential family models.
@@ -344,6 +363,10 @@ Spatial lag of fear of crime to account for spatial dependence.
 Moran's I on residuals indicates no spatial dependence
 
 No temporal autocorrelation in autoregressed residuals.
+
+.footnote[
+[1] Models without exposure offset replicate results.
+]
 
 ---
 # Results
@@ -790,13 +813,13 @@ No temporal autocorrelation in autoregressed residuals.
       <th colspan="4" class="gt_heading gt_title gt_font_normal gt_center" style>Complaint Rate Model Estimates</th>
     </tr>
     <tr>
-      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_center gt_bottom_border" style>Beat intercepts and trends omitted</th>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_center gt_bottom_border" style>Estimates: Log-Counts per standard deviation</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"> </th>
-      <th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="3">Complaint Counts</th>
+      <th class="gt_col_heading gt_center gt_columns_top_border gt_column_spanner" rowspan="1" colspan="3">Complaint Counts<sup class="gt_footnote_marks">1</sup></th>
     </tr>
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Std. Est.</th>
@@ -825,7 +848,20 @@ No temporal autocorrelation in autoregressed residuals.
     </tr>
   </tbody>
   
-  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="4">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          Beat intercepts and trends omitted
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
 </table></div>
 
 

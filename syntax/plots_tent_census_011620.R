@@ -8,4 +8,5 @@ load("./data/derived/tent_census.RData")
 
 # tent_census %>%
 
-qmplot(x = longitude, y = latitude, data = tent_census, source = "stamen", maptype = "terrain-lines", mapcolor = "bw", geom="blank") 
+qmplot(x = longitude, y = latitude, data = tent_census, source = "stamen", maptype = "terrain-lines", mapcolor = "bw", geom="blank") +
+  geom_point(color = "purple", alpha = 0.5, size = 3)

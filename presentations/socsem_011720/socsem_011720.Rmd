@@ -331,11 +331,30 @@ Census population was extrapolated to 2019 and interpolated to half-years.
 ]
 
 ---
+# Modeling Challenges
+
+We want to estimate relationship between complaints fear of crime and property crime.
+
+But nothing occurs in a vacuum, particularly not ecological processes.
+
+Temporal Autocorrelation
+* Increasing adoption of Find It, Fix It
+* Growth of public discourse on homelessness
+
+Spatial Dependence
+* Complaints come from a mobile app--people traverse boundaries
+
+Confounding
+* Propensity to engage in social control varies
+* Physical and social characteristics impact camping, property crime opportunities, and perceptions of fear
+
+---
 # Modeling Strategy
 
 We use a negative binomial model with beat-specific **fixed effects** and **time trends**.
-* Estimate per-resident complaint rate using population as exposure.
-* Models without exposure offset replicate results.
+* Estimate per-resident complaint rate using population as exposure.<sup>1</sup>
+* Fixed effects address stable beat characteristics
+* Trends address "natural" growth in complaints
 
 Spatial lag of fear of crime to account for spatial dependence.
 * Cannot use endogenous spatial lag in exponential family models.
@@ -345,15 +364,20 @@ Moran's I on residuals indicates no spatial dependence
 
 No temporal autocorrelation in autoregressed residuals.
 
+.footnote[
+[1] Models without exposure offset replicate results.
+]
+
 ---
 # Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 load("./output/coef_table.RData")
 coef_table %>%
-  tab_header(title = "Complaint Rate Model Estimates", subtitle ="Beat intercepts and trends omitted") %>%
+  tab_header(title = "Complaint Rate Model Estimates", subtitle ="Estimates: Log-Counts per standard deviation") %>%
   tab_spanner(label = "Complaint Counts", columns = c("Est.", "SE", "p")) %>%
-   cols_label(Est. = html("Std. Est."))
+   cols_label(Est. = html("Std. Est.")) %>%
+   tab_footnote("Beat intercepts and trends omitted", cells_column_spanners("Complaint Counts"))
 ```
 
 
