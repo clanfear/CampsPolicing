@@ -1,0 +1,14 @@
+The narrative
+
+The descriptive reality
+  Crime flat
+  Homelessness up
+  Complaints way up
+
+Question 1: Does homelessness predict crime
+  Problem: Complaints are not a good measure of homelessness, and common counts aren't granular or frequent.
+  Solution: Independent data on homelessness.
+
+Question 2: What predicts complaints? Is it driven by crime or visible homelessness?
+
+Question 3: What are the consequences of complaints?
