@@ -17,7 +17,7 @@ data_dates <- tribble(~source, ~group, ~start, ~end,
             "SPD Crime", 4, min(spd_public_geo$date), max(spd_public_geo$date),
             "SPD Survey", 5, min(spd_survey$call_date), max(spd_survey$call_date),
             "Sweeps", 6, min(sweeps$date), max(sweeps$date),
-            "SPU Complaints", 7, min(as.Date(unauthorized_camping_complaints$created_date)), max(as.Date(unauthorized_camping_complaints$created_date)),
+            "CSB Complaints", 7, min(as.Date(unauthorized_camping_complaints$created_date)), max(as.Date(unauthorized_camping_complaints$created_date)),
             )
   ) %>%
   mutate(start = if_else(start < as.Date("2016-01-01"), 

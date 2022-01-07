@@ -249,19 +249,24 @@ No option for homelessness--unlike San Francisco's 311 app.
 
 ---
 count: false
-## Find It, Fix It
+## Complaints: Find It, Fix It
 
 .pull-left[
-Mobile app introduced in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
+Mobile app introduced by Seattle Customer Service Bureau (CSB) in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
 
 No option for homelessness--unlike San Francisco's 311 app.
 
 Users have co-opted app to report homelessness under various categories.
 
-Seattle CSB employees read and manually mark complaints for .bam[unauthorized camping].
+CSB employees read and manually mark complaints for .bam[unauthorized camping].
 ]
 .pull-right[
+
+<br>
+
+.image-center[
 ![](./img/atlantic_article.png)
+]
 ]
 
 ---
