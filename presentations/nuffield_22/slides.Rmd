@@ -365,18 +365,15 @@ ggplot() +
   ggtitle("Data Availability") +
   theme_minimal(base_family = "Quattrocento", base_size = 20) +
   theme(plot.margin = margin(0, 0, 0, 0),
+        panel.grid.major.y = element_blank(),
         panel.background = element_rect(fill = "transparent",colour = NA),
         plot.background = element_rect(fill = "transparent",colour = NA),
         legend.position = "bottom")
 ```
 
-
 ---
-# The Process
-
-.image-300[
-![](img/analysis_diagram.svg)
-]
+class: inverse
+# Analysis
 
 
 ---
@@ -422,25 +419,34 @@ class: inverse
 ### Does visible homelessness lead to property crime?
 
 
-
 ---
-# Strategy
+# Methods
 
-* MLE fixed-effects cross-lagged panel models
-   * Similar to Arellano-Bond GMM, but better performance---more efficient, less biased in small samples and when autoregressive parameter is large---both true here.
-   * No contemporaneous effects here<sup>1</sup>
-   * Allow y and x effects to vary across waves; account for different time spans during and between waves (models fixing these rejected)
-   
-* 3 waves of tent census -> 4 waves of crime
-   * Focus on blockgroups where sampled
-   * Can't estimate opposite side of crosslag
-   * DO look at covariances
+&zwj;Challenges:
 
-.footnote[[1] Same results with contemporaneous effects instead.]
+* Many potential confounders
+   * Most relatively time-stable (e.g., social control, built environment)
+* Only 3 waves of tent census (small T)
+* Inconsistent time spans and wave spacing
+* Only certain areas resampled (small N: 41 blockgroups)
+
+--
+
+&zwj;Approach: .bam[Maximum likelihood fixed-effects cross-lagged panel estimator]<sup>1</sup>
+
+* Asymptotically equivalent to Arellano-Bond GMM
+   * Addresses time-stable confounders, avoids Nickell bias
+   * More efficient
+   * Less biased with small N or strong autoregression
+* Allows lagged effects and error variance to vary between waves
+
+.footnote[
+[1] See [Allison et al. (2017)](https://journals.sagepub.com/doi/full/10.1177/2378023117710578) and [Allison et al. (2018)](https://doi.org/10.1080/00036846.2018.1540854)
+]
 
 ???
 
-Very similar results with rates or logging outcome; log tends to fit a bit better but there are zeroes.
+Very similar results with rates or logging outcome; log tends to fit a bit better but there are zeroes. DPM complicated to set up with Poisson link.
 
 ---
 
@@ -450,6 +456,10 @@ Very similar results with rates or logging outcome; log tends to fit a bit bette
 ![](img/cl_sem_model.svg)
 ]
 
+???
+
+Teal correlation between epsilon 2 and Tents 3 makes tents 3 predetermined or sequentially exogenous rather than strictly exogenous.
+
 ---
 # Results
 
@@ -457,20 +467,31 @@ Very similar results with rates or logging outcome; log tends to fit a bit bette
 ```{r, echo=FALSE}
 load("../../data/derived/output/dpm_prop_bg_table_data.RData")
 dpm_prop_bg_table_data %>%
-  mutate(Term = ifelse(str_detect(Term, "-"), 
+  # mutate(Term = ifelse(str_detect(Term, "-"), 
+  #                      Term, 
+  #                      str_replace(Term, "\\)", 
+  #               paste0("\U2192", as.numeric(str_extract(Term, "\\d")) +1, ")" )))) %>%
+  mutate(Lag  = ifelse(str_detect(Term, "-"), 
                        Term, 
                        str_replace(Term, "\\)", 
-                paste0("🠒", as.numeric(str_extract(Term, "\\d")) +1, ")" )))) %>%
-  flextable(col_keys = c("Term", "Constrained", "Free")) %>%
+                paste0("\U2192", as.numeric(str_extract(Term, "\\d")) +1, ")" ))),
+         Lag = str_remove_all(Lag, "(^[A-Za-z]+ )|\\(|\\)"),
+         Term = str_remove(Term, " .+$")) %>%
+  flextable(col_keys = c("Term", "Lag", "Constrained", "Free")) %>%
   width(j=1 , width = 1.5) %>%
-  add_header_lines("Standardized effects") %>%
-  add_header_lines("Property Crime FE Cross-Lagged Models") %>%
+  add_header_lines("Standardized coefficients") %>%
+  add_header_lines("Estimated Effects on Property Crime") %>%
   border_remove() %>%
+  merge_v(j = 4) %>%
   hline_bottom(border = officer::fp_border(width = 1), part = "body") %>%
   hline(border = officer::fp_border(width = 1), i=2, part = "header") %>%
   hline_top(border = officer::fp_border(width = 0.5)) %>%
-  padding(padding = 2) %>%
-  align(j = c(2,3), align = "center", part = "all")
+  padding(padding = 2, part = "all") %>%
+  bg(i = c(3,4, 7, 8), bg = "grey90") %>%
+  align(j = c(2,3,4), align = "center", part = "all") %>%
+  color(i = c(1,3,5,7), j = c(1,3,4), color = nuff_col["Burgundy"]) %>%
+  color(i = c(1,3,5,7)+1, j = c(1,3,4), color = nuff_col["Cobalt Blue"]) %>%
+  fix_border_issues(part = "all")
 ```
 ]
 .pull-right[
@@ -491,18 +512,24 @@ class: inverse
 
 
 ---
-# Strategy
+# Methods
 
-WIth tents:
+&zwj;Challenges:
 
-Overlapping data problem: Only one period we have all three, so analysis is crude
+* Only one period has both complaints and tent census
+* Many potential confounders
 
-Complaints and crime alone:
+--
+
+&zwj;Approaches:
+
+* Crude cross-sectional analysis with homelessness
+* Many time-period DPM with only complaints and crime
 
 Long series here allows for DPM again; can run both sides of model
 
 ---
-# All Three Results
+# Cross-Section
 
 
 ---

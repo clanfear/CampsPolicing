@@ -21,7 +21,6 @@ dpm_prop_bg_out_free <- dpm(property ~ pre(lag(n_dwellings)),
                         mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
 summary(dpm_prop_bg_out_free)
 
-
 save(dpm_prop_bg_out_free, file = "./data/derived/output/dpm_prop_bg_out_free.RData")
 
 dpm_prop_bg_out_cons <- dpm(property ~ pre(lag(n_dwellings)), 

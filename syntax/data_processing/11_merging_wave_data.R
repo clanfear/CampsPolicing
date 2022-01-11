@@ -11,6 +11,19 @@ source("./syntax/project_functions.R")
 load("./data/derived/bg/tent_census_summer_2019_bg.RData")
 load("./data/derived/bg/tent_census_autumn_2019_bg.RData")
 load("./data/derived/bg/tent_census_summer_2020_bg.RData")
+load("./data/derived/bg/acs5_bg_2019.RData")
+load("./data/derived/bg/spd_public_bg_month.RData")
+load("./data/derived/bg/unauthorized_camping_complaints_monthly_bg.RData")
+load("./data/derived/bg/sweeps_monthly_bg.RData")
+load("./data/derived/bg/seattle_bg_boundaries.RData")
+
+sum_na <- function(x){
+  if(all(is.na(x))){
+    return(NA)
+  } else {
+    return(sum(x, na.rm=TRUE))
+  }
+}
 
 resample_bg <- tent_census_summer_2020_bg %>% 
   filter(n_dwellings >=1) %>%
@@ -28,24 +41,11 @@ tent_panel_bg <-
   group_by(blockgroup) %>%
   mutate(resampled = as.numeric(any(resampled == 1)))
 
-load("./data/derived/bg/seattle_bg_boundaries.RData")
-
 seattle_bg_boundaries %>%
   right_join(tent_panel_bg) %>%
   ggplot(aes(fill = n_dwellings)) + geom_sf()
 
-load("./data/derived/bg/acs5_bg_2019.RData")
-load("./data/derived/bg/spd_public_bg_month.RData")
-load("./data/derived/bg/unauthorized_camping_complaints_monthly_bg.RData")
-load("./data/derived/bg/sweeps_monthly_bg.RData")
 
-sum_na <- function(x){
-  if(all(is.na(x))){
-    return(NA)
-  } else {
-    return(sum(x, na.rm=TRUE))
-  }
-}
 
 ## WAVE 1: 4-April-2019 to 23-Aug-2019
 ## WAVE 2: 14-October-2019 to 14-Dec-2019
@@ -86,5 +86,3 @@ load("./data/derived/tract/seattle_tract_boundaries.RData")
 seattle_tract_boundaries %>%
   right_join(wave_data_tract) %>%
   ggplot(aes(fill = n_dwellings)) + geom_sf() + facet_wrap(~wave)
-
-# Tract-months
