@@ -20,7 +20,7 @@ dpm_prop_bg_out_free <- dpm(property ~ pre(lag(n_dwellings)),
                         filter(resampled ==1 & wave >= 1) %>%
                         mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
 summary(dpm_prop_bg_out_free)
-
+lav_summary(dpm_prop_bg_out_free)
 save(dpm_prop_bg_out_free, file = "./data/derived/output/dpm_prop_bg_out_free.RData")
 
 dpm_prop_bg_out_cons <- dpm(property ~ pre(lag(n_dwellings)), 
@@ -29,23 +29,27 @@ dpm_prop_bg_out_cons <- dpm(property ~ pre(lag(n_dwellings)),
                                              filter(resampled ==1 & wave >= 1) %>%
                                              mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
 summary(dpm_prop_bg_out_cons)
-
+lav_summary(dpm_prop_bg_out_cons)
 save(dpm_prop_bg_out_cons, file = "./data/derived/output/dpm_prop_bg_out_cons.RData")
 
-# VIOLENCE
+# Contemporaneous
+pm_prop_bg_out_free_cont <- dpm(property ~ pre(n_dwellings), 
+                           error.inv = TRUE,
+                           y.free = TRUE,
+                           x.free = TRUE,
+                           se = 'robust',
+                           data = panel_data(wave_data_bg %>% 
+                                               filter(resampled ==1 & wave <= 3) %>%
+                                               mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
+summary(pm_prop_bg_out_free_cont)
+lav_summary(pm_prop_bg_out_free_cont)
+save(pm_prop_bg_out_free_cont, file = "./data/derived/output/pm_prop_bg_out_free_cont.RData")
 
-dpm_viol_bg_out_free <- dpm(violent ~ pre(lag(n_dwellings)), 
-                            y.free = TRUE,
-                            x.free = TRUE,
+dpm_prop_bg_out_cons_cont <- dpm(property ~ pre(n_dwellings), 
                             se = 'robust',
                             data = panel_data(wave_data_bg %>% 
-                                                filter(resampled ==1 & wave >= 1) %>%
-                                                mutate(across(c(violent, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
-summary(dpm_viol_bg_out_free)
-
-dpm_viol_bg_out_cons <- dpm(violent ~ pre(lag(n_dwellings)), 
-                            se = 'robust',
-                            data = panel_data(wave_data_bg %>% 
-                                                filter(resampled ==1 & wave >= 1) %>%
-                                                mutate(across(c(violent, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
-summary(dpm_viol_bg_out_cons)
+                                                filter(resampled ==1 & wave <= 3) %>%
+                                                mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
+summary(dpm_prop_bg_out_cons)
+lav_summary(dpm_prop_bg_out_cons)
+save(dpm_prop_bg_out_cons, file = "./data/derived/output/dpm_prop_bg_out_cons.RData")

@@ -39,9 +39,14 @@ h1, h2, h3, h4 {
   color: var(--main-text-color);
 }
 .remark-slide-content {
-  background-position: left 10px bottom 10px, bottom, bottom, top;
-  background-size: 220px, contain, contain, contain;
-  background-image: url("./img/nuffield_csi_logo.svg"), linear-gradient(to top, rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,0.3)), linear-gradient(to right, rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,0.3)), url("./img/grid_third.svg");
+  background-position: left 15px bottom 15px, right 15px bottom 15px, bottom, bottom, top;
+  background-size: auto 50px, auto 50px, contain, contain, contain;
+  background-image: 
+    url("./img/csi_black.svg"), 
+    url("./img/logo-spu-abridged-legacy-maroon.svg"), 
+    linear-gradient(to top, rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,0.3)), 
+    linear-gradient(to right, rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,1.0), rgba(255,255,255,0.3)), 
+    url("./img/grid_third.svg");
 }
 .remark-slide-content h1 {
     font-size: 55px;
@@ -68,6 +73,7 @@ h1, h2, h3, h4 {
 .remark-slide-number {
   color: var(--main-text-color);
   opacity: 1;
+  right: 50%;
   font-size: 0.9em;
 }
 .inverse .remark-slide-number {
@@ -82,7 +88,7 @@ a, a > code {
 }
 .footnote {
   position: absolute;
-  bottom: 4em;
+  bottom: 5em;
   padding-right: 4em;
   font-size: 0.9em;
 }
@@ -299,7 +305,9 @@ body {
 .gradientbg {
   background-position: bottom, top;
   background-size: contain, contain;
-  background-image:  url("./img/grid_third_white.svg"), linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0), rgba(0,172,200,1.0));
+  background-image:  
+    url("./img/grid_third_white.svg"), 
+    linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0), rgba(0,172,200,1.0));
 }
 .centernote {
   text-align: center;
@@ -309,7 +317,7 @@ body {
   margin: 0 auto;
   padding-left: 100px;
   padding-right: 100px;
-  bottom: 3em;
+  bottom: 5em;
 }
 .centernote-high {
   text-align: center;
@@ -357,9 +365,13 @@ body {
 }
 .title-slide {
   background-color: var(--main-text-color);
-  background-image: url("./img/nuffield_csi_logo_white.svg"), linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("./img/mountains.jpg");
-  background-position: left 10px bottom 10px, top, center;
-  background-size: 220px, contain, cover;
+  background-image: 
+    url("./img/csi_white.svg"), 
+    url("./img/logo-spu-abridged-falcon-red.svg"),
+    linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+    url("./img/mountains.jpg");
+  background-position: left 15px bottom 15px, right 15px bottom 15px, top, center;
+  background-size: auto 50px, auto 50px, contain, cover;
   text-shadow: 0 0 1px var(--main-text-color), 0 0 1px var(--main-text-color), 0 0 1px var(--main-text-color), 0 0 1px var(--main-text-color);
 }
 .title-slide, .title-slide h1, .title-slide h2, .title-slide h3 {

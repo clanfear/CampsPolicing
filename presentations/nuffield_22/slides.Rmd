@@ -45,27 +45,25 @@ font_add_google("Quattrocento")
 <iframe width="700" height="394" src="https://www.youtube.com/embed/bpAi70WWBlw?start=233&end=401?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+.centernote[*This has 11.5 million views.*]
+
 ---
 # The Narrative
 
 We are told homelessness, drug use, and property crime are out of control.
+
+* .bam[A breakdown of law and order.]
 * In Broken Windows terms, .bam[a spiral of decay].
 
 --
 
-[A prominent report](https://thecisforcrank.com/wp-content/uploads/2019/06/system-failure-prolific-offender-report-feb-2019.pdf) claims Seattle's most "prolific offenders" are universally homeless, addicted, and allowed to run rampant.
-* .bam[A breakdown of law and order.]
+[A prominent report](https://thecisforcrank.com/wp-content/uploads/2019/06/system-failure-prolific-offender-report-feb-2019.pdf) claimed Seattle's most "prolific offenders" are universally homeless, addicted, and allowed to run rampant.
 
 --
 
-The homeless fund substance use with property crime.
+The unhoused are presented as motivated offenders funding substance use via property crime.
 
-* The unhoused as motivated offenders
-* Addiction justifies .bam[social control]: "they need to be helped"
-
---
-
-Cause is tied hands of police, defacto drug decriminalization, and absence of compulsory treatment.
+* Their addiction justifies .bam[social control]: "they need to be helped"
 
 --
 
@@ -100,7 +98,7 @@ ggplot(seattle_crime_rates, aes(x = year, y = rate, group = name, color= name)) 
 ```
 
 .centernote-high[
-### .bam[Crime *is not* increasing.]
+### .bam[Property crime *is not* increasing.]
 ]
 
 ---
@@ -133,7 +131,6 @@ pit_counts %>%
 
 ```{r, echo=FALSE, dev='svg', fig.height = 5, dev.args = list(bg = 'transparent')}
 load("../../data/derived/disaggregated/unauthorized_camping_complaints.RData")
-
 unauthorized_camping_complaints %>%
   mutate(date = floor_date(created_date, unit = "month")) %>%
   filter(date < max(date)) %>%
@@ -145,7 +142,8 @@ unauthorized_camping_complaints %>%
   ggtitle("Unauthorized Camping Complaints", subtitle = "Monthly complaints to City of Seattle") +
   geom_mark_rect(aes(label = "Severe Winter", 
                      description = "Record rain, snowfall, and low temperatures" , 
-                     filter = marker), fill = unname(nuff_col["Nuffield Teal"])) +
+                     filter = marker), fill = unname(nuff_col["Nuffield Teal"]),
+                 con.cap = 0) +
   theme_minimal(base_family = "Quattrocento", base_size = 20) + 
   theme(legend.title = element_blank(),
         text = element_text(family = "Quattrocento", size = 20, debug = FALSE),
@@ -163,6 +161,42 @@ unauthorized_camping_complaints %>%
 ???
 
 Feb 2019 had massive snowstorm
+
+---
+## Complaints: Find It, Fix It
+
+.pull-left[
+Mobile app introduced by Seattle Customer Service Bureau (CSB) in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
+
+No option for homelessness--unlike San Francisco's 311 app.
+]
+.pull-right[
+.image-full[
+![](./img/fifi.jpg)
+]
+]
+
+---
+count: false
+## Complaints: Find It, Fix It
+
+.pull-left[
+Mobile app introduced by Seattle Customer Service Bureau (CSB) in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
+
+No option for homelessness--unlike San Francisco's 311 app.
+
+Users have co-opted app to report homelessness under various categories---which has generated controversy.
+
+CSB employees read and manually mark complaints for .bam[unauthorized camping].
+]
+.pull-right[
+
+<br>
+
+.image-center[
+![](./img/atlantic_article.png)
+]
+]
 
 ---
 # Complaints as Social Control
@@ -183,6 +217,10 @@ Unauthorized camping complaints are an alternate appeal to formal social control
 
 .footnote[[1] Complaints end up in the same Navigation Team pool as police calls.]
 
+???
+
+We actually have text of comlaints---people are often angry, demanding *something* be done.
+
 ---
 class: bg_sweep
 
@@ -201,6 +239,7 @@ Sweeps are the ultimate formal social control response to "unauthorized camping"
 
 Joint city and police encampment removals:
 
+* 72-hour warning unless hazard or obstruction
 * Offer social services (~15% uptake)
    * Often nightly shelter without secure storage
 * Discard "waste" and store "belongings"
@@ -213,8 +252,6 @@ Negative impacts on unhoused population
 * Deprivation of property
    * Barriers to reacquisition
 * Forced relocation
-* Fear and anxiety over future sweeps
-* Alienation from city services and agents
 
 ---
 # Our Questions
@@ -234,50 +271,14 @@ class: inverse
 # Data
 
 ---
-## Complaints: Find It, Fix It
-
-.pull-left[
-Mobile app introduced in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
-
-No option for homelessness--unlike San Francisco's 311 app.
-]
-.pull-right[
-.image-full[
-![](./img/fifi.jpg)
-]
-]
-
----
-count: false
-## Complaints: Find It, Fix It
-
-.pull-left[
-Mobile app introduced by Seattle Customer Service Bureau (CSB) in 2013 for reporting issues like decaying infrastructure, dumping, and abandoned vehicles.
-
-No option for homelessness--unlike San Francisco's 311 app.
-
-Users have co-opted app to report homelessness under various categories.
-
-CSB employees read and manually mark complaints for .bam[unauthorized camping].
-]
-.pull-right[
-
-<br>
-
-.image-center[
-![](./img/atlantic_article.png)
-]
-]
-
----
 # Measuring Homelessness
 
-Visible homelessness is commonly considered a form of disorder, such as in the Broken Windows thesis.
+Visible signs of homelessness is commonly treated as form of "disorder" in Broken Windows research.
 
 
-Research on disorder and crime frequently uses complaints to the city as a *measure* of prevalence of disorder.<sup>1</sup>
+This research often uses complaints to the city as *measure* of disorder prevalence.<sup>1</sup>
 
-.footnote[[1] e.g., [O'Brien & Sampson (2015)](https://journals.sagepub.com/doi/abs/10.1177/0022427815577835) ]
+.footnote[[1] e.g., [O'Brien & Sampson (2015)](https://journals.sagepub.com/doi/abs/10.1177/0022427815577835)]
 
 --
 
@@ -287,7 +288,7 @@ This induces spuriousness between complaint-based measures of homelessness and c
 
 --
 
-We need a measure of homelessness independent of reporting propensity.
+We need a measure of where the unhoused live which is independent of reporting propensity.
 
 ---
 # The Tent Census
@@ -297,7 +298,7 @@ In April through August of 2019, Karen Snedker's team at Seattle Pacific Univers
 
 In Autumn 2019 and Summer 2020, they resampled high density areas to observe change over time.
 
-This provides three measures of .bam[visible homelessness] independent of reporting.
+This provides three measures of .bam[visible homelessness] independent of reporting actions.
 ]
 .pull-right[
 .image-full[
@@ -337,6 +338,7 @@ ggplot(data = tent_census_counts) +
 For today:
 
 * Seattle Police Department (SPD) known property crimes
+   * Violent crimes as a covariate
 
 * City of Seattle encampment sweep logs
 
@@ -347,19 +349,31 @@ Not shown today:
   * Fear of crime
   * Satisfaction with police
 
-* SPD known violent crimes
+* Tent Cities and Tiny House Villages<sup>1</sup>
 
-* Tent Cities and Tiny House Villages
+.footnote[[1] A [report by the Guardian](https://www.theguardian.com/us-news/2018/may/23/homeless-villages-crime-rate-seattle-portland) and an unpublished study by Dartmouth applied economics students indicate crime is *lower* near these.]
 
 ---
 
 ```{r, echo=FALSE, dev='svg', fig.height = 6, dev.args = list(bg = 'transparent')}
 load("../../data/derived/other/data_dates.RData")
-ggplot() + 
-  geom_line(data = data_dates, aes(x = value, group = group, y = source), size = 5, color = nuff_col["Burgundy"]) + 
-  geom_rect(aes(xmin=as.Date("2019-04-04"), 
-                xmax=max(as.Date(unauthorized_camping_complaints$created_date)), 
-                ymin=0, ymax=Inf), alpha = 0.5, fill = nuff_col["Nuffield Teal"]) +
+rect_data <- expand.grid(value = seq.Date(min(data_dates$value), max(data_dates$value), by = "month"),
+                         source = unique(data_dates$source)) %>%
+  mutate(date_filter = value >= as.Date("2019-04-04") & value <= as.Date("2019-07-09"))
+        
+ggplot(data_dates) + 
+  geom_line(aes(x = value, group = group, y = source), size = 10, color = nuff_col["Burgundy"]) + 
+  #geom_rect(aes(xmin=as.Date("2019-04-04"), 
+  #              xmax=max(as.Date(unauthorized_camping_complaints$created_date)), 
+  #              ymin=0, ymax=Inf), alpha = 0.5, fill = nuff_col["Nuffield Teal"]) +
+  geom_mark_rect(data = rect_data,
+                 aes(label = "Overlap",
+                                        x = value,
+                                        y = source,
+                     group = NA,
+                     filter = date_filter), 
+                     fill = unname(nuff_col["Nuffield Teal"]),
+                 con.cap = 0) +
   ylab("") + 
   xlab("") + 
   ggtitle("Data Availability") +
@@ -418,30 +432,60 @@ class: inverse
 
 ### Does visible homelessness lead to property crime?
 
-
 ---
-# Methods
-
-&zwj;Challenges:
+# Challenges
 
 * Many potential confounders
-   * Most relatively time-stable (e.g., social control, built environment)
-* Only 3 waves of tent census (small T)
-* Inconsistent time spans and wave spacing
-* Only certain areas resampled (small N: 41 blockgroups)
+
+   * Most relatively time-stable
+      * e.g., social control, built environment
 
 --
 
-&zwj;Approach: .bam[Maximum likelihood fixed-effects cross-lagged panel estimator]<sup>1</sup>
+* Reciprocality if property crime leads to displacement
+
+--
+
+* Only 3 waves of tent census (small T), with inconsistent spans and spacing
+
+   * Summer 2019
+   * Late Autumn 2019
+   * Spring-Summer 2020
+
+--
+
+* Ambiguous geographical units
+
+   * Tents and crime are point data
+   * Only certain areas resampled, not based on administrative boundary
+     * e.g., the Interstate 5 highway corridor
+
+
+---
+# Approach
+
+1. Aggregate to US census blockgroups
+
+  * Minimizes inclusion of unsampled area
+  * Sufficient counts of property crime
+  * Incorporates physical boundaries
+
+--
+
+2. .bam[Maximum likelihood fixed-effects cross-lagged panel estimator]<sup>1</sup>
 
 * Asymptotically equivalent to Arellano-Bond GMM
-   * Addresses time-stable confounders, avoids Nickell bias
+   * Addresses time-stable confounders
+   * Avoids Nickell bias
+* Advantages:
    * More efficient
    * Less biased with small N or strong autoregression
-* Allows lagged effects and error variance to vary between waves
+   * Coefficients and error variances can vary between waves
 
+
+  
 .footnote[
-[1] See [Allison et al. (2017)](https://journals.sagepub.com/doi/full/10.1177/2378023117710578) and [Allison et al. (2018)](https://doi.org/10.1080/00036846.2018.1540854)
+[1] See [Allison et al. (2017)](https://journals.sagepub.com/doi/full/10.1177/2378023117710578) and [Moral-Benito et al. (2018)](https://doi.org/10.1080/00036846.2018.1540854)
 ]
 
 ???
@@ -461,7 +505,7 @@ Very similar results with rates or logging outcome; log tends to fit a bit bette
 Teal correlation between epsilon 2 and Tents 3 makes tents 3 predetermined or sequentially exogenous rather than strictly exogenous.
 
 ---
-# Results
+# Tents and Crime Results
 
 .pull-left[
 ```{r, echo=FALSE}
@@ -491,7 +535,8 @@ dpm_prop_bg_table_data %>%
   align(j = c(2,3,4), align = "center", part = "all") %>%
   color(i = c(1,3,5,7), j = c(1,3,4), color = nuff_col["Burgundy"]) %>%
   color(i = c(1,3,5,7)+1, j = c(1,3,4), color = nuff_col["Cobalt Blue"]) %>%
-  fix_border_issues(part = "all")
+  fix_border_issues(part = "all") %>%
+  add_footer_lines("N = 41 (blockgroups)")
 ```
 ]
 .pull-right[
@@ -500,7 +545,13 @@ Highlights
 * Near zero or negative relationship between dwellings and crime
 
 * Similar results across specifications
+
+* Strong preference for unconstrained lagged effects
 ]
+
+???
+
+
 
 ---
 class: inverse
@@ -508,41 +559,86 @@ class: inverse
 
 ### Are complaints driven by property crime or visible homelessness?
 
+---
+# Methods
 
+&zwj;Challenge:
 
+* Only one period has both complaints and tent census
+* Complaints are skewed count
+
+--
+
+&zwj;Approach: .bam[Poisson-Lognormal Regression]
+
+   * Simple cross-sectional analysis
+   * Adjust for correlates of opportunity and social control:
+      * Concentrated disadvantage<sup>1</sup>
+      * Home ownership rate
+      * Population density
+      * Violent crime rate
+   * Observation-level random effect for dispersion
+   * Better fit than Poisson, NB, linear
+
+.footnote[
+[1] Following [Sharkey's (2014)](https://www.journals.uchicago.edu/doi/full/10.1086/674561) operationalization.
+]
+
+---
+# Crime and Complaints Results
+
+.pull-left[
+```{r, echo=FALSE}
+load("../../data/derived/output/glmer_table.RData")
+glmer_table %>%
+flextable(col_keys = c("Term", "Estimate")) %>%
+  width(j=1 , width = 1.5) %>%
+  add_header_lines("Log-count per SD(Term)") %>%
+  add_header_lines("Estimated Effects on Complaints") %>%
+  border_remove() %>%
+  hline_bottom(border = officer::fp_border(width = 1), part = "body") %>%
+  hline(border = officer::fp_border(width = 1), i=2, part = "header") %>%
+  hline_top(border = officer::fp_border(width = 0.5)) %>%
+  padding(padding = 2, part = "all") %>%
+  align(j = 2, align = "center", part = "all") %>%
+  color(i = 1, j = 1:2, color = nuff_col["Burgundy"]) %>%
+  color(i = 2, j = 1:2, color = nuff_col["Cobalt Blue"]) %>%
+  add_footer_lines("N = 477 (blockgroups)")
+```
+]
+
+.pull-right[
+* Property crime predicts unauthorized camping complaints net of visible homelessness.
+
+* 35 more property crimes associated with ~70% more complaints.
+]
+
+???
+
+SD tents is 30, 44% increase per SD
+
+---
+class: inverse
+# Question 3
+
+### Do complaints lead to formal social control actions--encampment sweeps?
 
 ---
 # Methods
 
 &zwj;Challenges:
 
-* Only one period has both complaints and tent census
-* Many potential confounders
+* Sweeps are rare
+   * 97 recorded
+   * 44 in tent census period
+* Still minimal data overlap
 
 --
 
-&zwj;Approaches:
+&zwj;Approach: .bam[Poisson-Lognormal Regression]?
 
-* Crude cross-sectional analysis with homelessness
-* Many time-period DPM with only complaints and crime
+Looks like standard poisson works well here; not overdispersed
 
-Long series here allows for DPM again; can run both sides of model
-
----
-# Cross-Section
-
-
----
-# Crime and Complaints Results
-
-
----
-# Tents, Crime, and Complaints
-
----
-# Sweeps
-
-* Manually coded from Navigation Team reports
 
 ---
 # Crime, Complaints, and Sweeps
@@ -553,11 +649,69 @@ Can I do a logit outcome on sweeps?
 
 Interact complaints with median income or something?
 
+
+---
+# Summary
+
+* Visible homelessness isn't associated with property crime
+
+* Complaints are associated with both visible homelessness and property crime
+
+* Sweeps are associated with complaints and visible homelessness
+
+Maybe put diagram here, X out the tents -> prop crime line
+
+---
+# Implications
+
+* Visible unhoused population 
+
+---
+# Recent Developments
+
+* In 2021, the Navigation Team was replaced by Homelessness Outreach and Provider Ecosystem (HOPE) Team
+
+   * No embedded police
+   * Does not participate in sweeps / removals
+   * Conducts outreach prior to city removals
+
+* Sweeps paused during initial COVID-19 wave
+
+   * Resumed in Spring 2021
+
 ---
 # Future Directions
 
-* Where are tents located?
+.pull-left[
+
+Where are tents located?
    * Physical characteristics (roads, bridges, parks)
    * Social characteristics (stability, social control)
+]
+.pull-right[
+
+]
+
+---
+# Acknowledgements
+
+.pull-left[
+### Special Thanks
+
+Loren Atherley, Seattle Police Department
+
+Claudia Gross-Shader, City of Seattle
+
+Idris Beauregard, Seattle Public Utilities
+
+]
+
+.pull-left[
+### Funding
+
+Seattle Pacific University
+
+Phinney Ridge Lutheran Church
+
+]
    
-   A [report by the Guardian](https://www.theguardian.com/us-news/2018/may/23/homeless-villages-crime-rate-seattle-portland) and an unpublished study by Dartmouth applied economics students both found negative associations between crime and tent cities and tiny house villages in Seattle.

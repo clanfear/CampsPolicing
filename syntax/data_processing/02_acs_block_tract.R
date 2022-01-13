@@ -77,6 +77,7 @@ acs5_tract_2019 <- get_acs("tract", variables = var_vector, year = 2019, state =
 save(acs5_tract_2019, file = "./data/derived/tract/acs5_tract_2019.RData")
 
 # BG
+# Note: 53.02.3 has no values for many variables; this is a UW campus BG.
 acs5_bg_2019 <- get_acs("block group", variables = var_vector, year = 2019, state = "WA",
                           county = "King", output = "wide", geometry = FALSE) %>%
   rename(blockgroup = GEOID) %>%
@@ -110,6 +111,8 @@ acs5_bg_2019 <- get_acs("block group", variables = var_vector, year = 2019, stat
          # stability    = psych::principal(select(., pr_ownhome, pr_same_house))$scores[,1],
          disadvantage = psych::principal(select(., pr_pub_assist, pr_poverty, pr_unemp, pr_fhh, pr_under_18))$scores[,1]
   )
+
+
 
 save(acs5_bg_2019, file = "./data/derived/bg/acs5_bg_2019.RData")
 

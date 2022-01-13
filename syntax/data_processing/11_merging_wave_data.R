@@ -76,7 +76,7 @@ save(wave_data_bg, file = "./data/derived/analysis/wave_data_bg.RData")
 
 wave_data_tract <- wave_data_bg %>%
   group_by(tract, wave) %>%
-  summarize(across(c(property, violent, matches("complaints|sweeps|n_|^pop|resampled")), ~sum_na(.)), .groups = "drop") %>%
+  summarize(across(c(property, violent, gta, burglary, matches("complaints|sweeps|n_|^pop|resampled")), ~sum_na(.)), .groups = "drop") %>%
   mutate(resampled = as.numeric(resampled > 0))
 
 save(wave_data_tract, file = "./data/derived/analysis/wave_data_tract.RData")
