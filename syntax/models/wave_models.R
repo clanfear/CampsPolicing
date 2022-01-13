@@ -15,7 +15,7 @@ load("./data/derived/analysis/wave_data_tract.RData")
 dpm_prop_bg_out_free <- dpm(property ~ pre(lag(n_dwellings)), 
                y.free = TRUE,
                x.free = TRUE,
-               se = 'robust',
+               estimator = "MLM",
     data = panel_data(wave_data_bg %>% 
                         filter(resampled ==1 & wave >= 1) %>%
                         mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))
@@ -24,7 +24,7 @@ lav_summary(dpm_prop_bg_out_free)
 save(dpm_prop_bg_out_free, file = "./data/derived/output/dpm_prop_bg_out_free.RData")
 
 dpm_prop_bg_out_cons <- dpm(property ~ pre(lag(n_dwellings)), 
-                         se = 'robust',
+                         estimator = "MLM",
                          data = panel_data(wave_data_bg %>% 
                                              filter(resampled ==1 & wave >= 1) %>%
                                              mutate(across(c(property, n_dwellings), ~standardize(.))), id = blockgroup, wave = wave))

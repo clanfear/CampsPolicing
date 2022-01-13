@@ -551,7 +551,7 @@ Highlights
 
 ???
 
-
+Only 3 degrees of freedom in unconstrained model; insignificant Chi-square
 
 ---
 class: inverse
