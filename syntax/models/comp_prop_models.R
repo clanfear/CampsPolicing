@@ -19,6 +19,7 @@ summary(glmer_fit)
 
 comp_prop_cross_bg %>% select(property, n_dwellings) %>% summarize(across(everything(), list(~sd(.))))
 # splag introduces back in a tiny bit of deviation on residuals vs. predicted
+# This is due to splag having a quadratic shape
 # NB and Poisson models still godawful in comparison
 
 glmer_sim <- simulateResiduals(fittedModel = glmer_fit, plot = F)

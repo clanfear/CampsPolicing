@@ -84,6 +84,55 @@ dpm_prop_bg_table_data <- broom::tidy(dpm_prop_bg_out_cons) %>%
   pivot_wider(names_from = Model, values_from = Estimate) 
 save(dpm_prop_bg_table_data, file = "./data/derived/output/dpm_prop_bg_table_data.RData")
 
+# Other crimes
+
+dpm_lag_panel_burglary <- panel_data(wave_data_bg %>% 
+                              filter(resampled == 1, wave >= 1) %>%
+                              group_by(blockgroup) %>%
+                              filter(!near(var(n_dwellings, na.rm=TRUE), 0) & 
+                                       !near(var(burglary, na.rm=TRUE), 0)) %>%
+                              ungroup(),
+                            id = blockgroup, wave = wave)
+dpm_burg_bg_out_free <- dpm(burglary ~ pre(lag(n_dwellings)), 
+                            y.free = FALSE,
+                            x.free = FALSE,
+                            std.ov = TRUE,
+                            estimator = "MLM",
+                            data = dpm_lag_panel_burglary)
+
+summary(dpm_burg_bg_out_free)
+
+dpm_lag_panel_gta <- panel_data(wave_data_bg %>% 
+                                       filter(resampled == 1, wave >= 1) %>%
+                                       group_by(blockgroup) %>%
+                                       filter(!near(var(n_dwellings, na.rm=TRUE), 0) & 
+                                                !near(var(gta, na.rm=TRUE), 0)) %>%
+                                       ungroup(),
+                                     id = blockgroup, wave = wave)
+dpm_gta_bg_out_free <- dpm(gta ~ pre(lag(n_dwellings)), 
+                            y.free = FALSE,
+                            x.free = FALSE,
+                            std.ov = TRUE,
+                            estimator = "MLM",
+                            data = dpm_lag_panel_burglary)
+
+summary(dpm_gta_bg_out_free)
+
+dpm_lag_panel_violent <- panel_data(wave_data_bg %>% 
+                                  filter(resampled == 1, wave >= 1) %>%
+                                  group_by(blockgroup) %>%
+                                  filter(!near(var(n_dwellings, na.rm=TRUE), 0) & 
+                                           !near(var(violent, na.rm=TRUE), 0)) %>%
+                                  ungroup(),
+                                id = blockgroup, wave = wave)
+dpm_viol_bg_out_free <- dpm(violent ~ pre(lag(n_dwellings)), 
+                           y.free = FALSE,
+                           x.free = FALSE,
+                           std.ov = TRUE,
+                           estimator = "MLM",
+                           data = dpm_lag_panel_violent)
+
+summary(dpm_viol_bg_out_free)
 # Contemporaneous
 # These appear to have some issues fitting. Some unlikely parameter estimates.
 

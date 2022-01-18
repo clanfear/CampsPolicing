@@ -250,8 +250,6 @@ class: bg_sweep
 
 What, exactly the government does, can include sweeps of encampments.
 
-From the text of complaints, this is frequently what complainants are hoping for: removal of the encampment.
-
 ---
 class: bg_sweep_op
 count: false
@@ -268,8 +266,14 @@ Until recently, joint city and police encampment removals:
 * 72-hour warning unless hazard or obstruction present
 * Offer social services (~15% uptake)
    * Often nightly shelter without secure storage
-* Discard "waste" and store "belongings"
+* Discard waste and store belongings
 * Highly discretionary—unobserved selection process
+
+???
+
+Hazards include sanitation and risks like cars. Obstructions are anything impeding use of sidewalk or facility; basically anywhere in a park.
+
+Encampments vary greatly in level of waste and order. Some very visible are stacked with garbage.
 
 --
 
@@ -281,6 +285,10 @@ Negative impacts on unhoused population:
 ???
 
 These sweeps are potentially the final stage in a process that begins in part with concerns over property crime.
+
+From the text of complaints, this is frequently what complainants are hoping for: removal of the encampment.
+
+Regardless of how safe or pleasant living in encampment is, it is presumably worse to be displaced / lose acquired items.
 
 ---
 # Our Questions
@@ -434,7 +442,9 @@ We focus today on data from 2019 after unauthorized camping complaints via *Find
 
 For today:
 
-* Seattle Police Department (SPD) known crimes
+* Seattle Police Department (SPD) property crime
+
+   + Theft (68%), Burglary (21%), Auto Theft (11%)
 
 * City of Seattle encampment sweep logs
 
@@ -765,6 +775,8 @@ dpm_prop_bg_table_data %>%
 
 * Similar results across specifications
 
+   + Weak evidence for burglary, but not theft, auto theft, or violence
+
 * Preference for unconstrained lagged effects
 
 * Lagged effects preferred over contemporaneous effects
@@ -886,7 +898,7 @@ If asked about rates: Unclear denominator---what is complaints per person? Does 
 class: inverse
 # Question 3
 
-### Do complaints lead to formal social control actions--encampment sweeps?
+### Do complaints lead to formal social control actions—encampment sweeps?
 
 ???
 
@@ -979,6 +991,8 @@ flextable(col_keys = c("Term", "Estimate")) %>%
 
 * Narrative conflating visible homelessness with property crime may be unwarranted
 
+   + "Misplaced blame"
+
 ???
 
 If these results are roughly accurate, they have some implications.
@@ -989,19 +1003,21 @@ NPR interview
 
 --
 
-* Strong association between complaints about homelessness and property crime--net of *actual visible homelessness*--suggests conflation may have consequences for social control *demands*.
-
-   + "Misplaced blame"
+* Strong association between complaints about homelessness and property crime—net of *actual visible homelessness*—suggests this conflation may lead to social control *demands*.
 
 ???
+
+The important thing here is not that complaints are higher where there is property crime, but that they're higher conditional on visible homelessness.
 
 --
 
-* These demands appear to translate into formal social control *actions*.
+* Further, these demands appear to translate into formal social control *actions* by city government—with consequences for the unhoused population.
+
+   + "Misplaced sanctions"
 
 ???
 
-Irony here is misplaced blame for property crime---which is deprivation of property---may be leading to deprivation of property of unhoused population.
+Irony here is misplaced blame for property crime---which is deprivation of people's property---may be leading to deprivation of property of unhoused population.
 
 ---
 # Caveats and Concerns
@@ -1013,6 +1029,13 @@ Irony here is misplaced blame for property crime---which is deprivation of prope
    * Treatment heterogeneity
       + e.g. "Problem encampments"
    * Spatial effects
+   * Spatial units
+
+???
+
+Squeezing blood from a stone. Effects in panel model are weak or negative, but fair argument that tests are underpowered.
+
+Reasonable to expect spatial effects in property crime, but insufficient power to detect.
 
 --
 
@@ -1032,17 +1055,17 @@ Some individuals may choose location to camp for reasons of criminal opportunity
 
 May also, again, be treatment heterogeneity
 
+Importantly, of course, must recognize that some encampments simply make residents feel unsafe and may impact use of public spaces and facilities.
+
 --
 
 * Is crime up, but reporting to police down?
 
 ???
 
-Relationship between camps and prop crime could be confounded by reporting differences; I don't doubt some reporting has declined.
+Relationship between camps and prop crime could be confounded by reporting differences; I don't doubt some reporting has declined---one of most common social media narratives is useless and unresponsive police.
 
-That reported prop crime strongly predicts another form of reporting---complaints---makes this seem unlikely to me. They don't appear to be substituting. Relationship might be complex.
-
-
+Prop crime strongly predicts another form of reporting however---complaints. They don't appear to be substituting, but the relationship might be complex.
 
 ---
 # Recent Developments
@@ -1051,6 +1074,7 @@ That reported prop crime strongly predicts another form of reporting---complaint
 
    * Sweeps paused ~1 year
    * Changes in homelessness and social control
+
 
 --
 
@@ -1066,6 +1090,12 @@ That reported prop crime strongly predicts another form of reporting---complaint
 
    * Hotel-based options
    * New shelters
+
+???
+
+In short, context of homelessness and social control may have changed somewhat since data were collected
+
+But narrative appears to be pretty similar
 
 ---
 # Future Directions
@@ -1105,22 +1135,27 @@ Effects of sweeps
 .pull-left[
 ### Special Thanks
 
-SPU Student Research Team
+* SPU Student Research Team
 
-Loren Atherley, Seattle Police Department
+* Loren Atherley, Seattle Police Department
 
-Claudia Gross-Shader, City of Seattle
+* Claudia Gross-Shader, City of Seattle
 
-Idris Beauregard, Seattle Public Utilities
+* Idris Beauregard, Seattle Public Utilities
 ]
 
 .pull-left[
 ### Funding
 
-Seattle Pacific University
+* Seattle Pacific University
 
-Phinney Ridge Lutheran Church
+* Phinney Ridge Lutheran Church
 
 ]
 
+---
+count: false
+class: inverse
+
+# Thank You
 
