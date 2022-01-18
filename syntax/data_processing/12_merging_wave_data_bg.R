@@ -8,6 +8,7 @@ source("./syntax/project_functions.R")
 # Four-wave subset in sampled zones; predict crime / complaints at three points
 # Tracts with at least 1 tent in either resample
 
+load("./data/derived/block/all_resampled_blocks.RData")
 load("./data/derived/bg/tent_census_summer_2019_bg.RData")
 load("./data/derived/bg/tent_census_autumn_2019_bg.RData")
 load("./data/derived/bg/tent_census_summer_2020_bg.RData")
@@ -16,6 +17,7 @@ load("./data/derived/bg/spd_public_bg_month.RData")
 load("./data/derived/bg/unauthorized_camping_complaints_monthly_bg.RData")
 load("./data/derived/bg/sweeps_monthly_bg.RData")
 load("./data/derived/bg/seattle_bg_boundaries.RData")
+load("./data/derived/bg/seattle_bg_neighbors.RData")
 
 sum_na <- function(x){
   if(all(is.na(x))){
@@ -33,6 +35,7 @@ resample_bg <- tent_census_summer_2020_bg %>%
               mutate(wave = 2)) %>%
   complete(blockgroup, wave, fill = list(n_tents = 0, n_structures = 0, n_dwellings = 0)) %>%
   mutate(resampled = 1)
+
 tent_panel_bg <-  
   bind_rows(resample_bg, 
     tent_census_summer_2019_bg %>%
@@ -41,17 +44,11 @@ tent_panel_bg <-
   group_by(blockgroup) %>%
   mutate(resampled = as.numeric(any(resampled == 1)))
 
-seattle_bg_boundaries %>%
-  right_join(tent_panel_bg) %>%
-  ggplot(aes(fill = n_dwellings)) + geom_sf()
-
-
-
 ## WAVE 1: 4-April-2019 to 23-Aug-2019
 ## WAVE 2: 14-October-2019 to 14-Dec-2019
 ## WAVE 3: 5-April-2020 to 30-July-2020
 
-wave_data_bg <- spd_public_bg_month %>%
+wave_data_bg_nosplag <- spd_public_bg_month %>%
   full_join(unauthorized_camping_complaints_monthly_bg) %>%
   full_join(sweeps_monthly_bg) %>%
   mutate(wave = case_when(
@@ -68,21 +65,16 @@ wave_data_bg <- spd_public_bg_month %>%
   full_join(tent_panel_bg)  %>%
   group_by(blockgroup) %>%
   mutate(tract = str_sub(blockgroup, 1, -2)) %>%
-  mutate(resampled = ifelse(wave == 0, lead(resampled), resampled)) %>% 
+  mutate(resampled = ifelse(wave == 0, dplyr::lead(resampled), resampled)) %>% 
   ungroup() %>%
   left_join(acs5_bg_2019)
-  
+
+wave_data_bg_splag <- seattle_bg_neighbors %>%
+  inner_join(wave_data_bg_nosplag %>% rename(neighbors = blockgroup)) %>%
+  group_by(blockgroup, wave) %>%
+  summarize(across(matches("burglary|gta|property|violent|complaints|sweeps|n_dwellings|disadv|pop_sqkm|pr_ownhome"), ~ mean(., na.rm = TRUE), .names = "splag_{.col}"), .groups = "drop")
+
+wave_data_bg <- wave_data_bg_nosplag |> 
+  full_join(wave_data_bg_splag)
+
 save(wave_data_bg, file = "./data/derived/analysis/wave_data_bg.RData")
-
-wave_data_tract <- wave_data_bg %>%
-  group_by(tract, wave) %>%
-  summarize(across(c(property, violent, gta, burglary, matches("complaints|sweeps|n_|^pop|resampled")), ~sum_na(.)), .groups = "drop") %>%
-  mutate(resampled = as.numeric(resampled > 0))
-
-save(wave_data_tract, file = "./data/derived/analysis/wave_data_tract.RData")
-
-load("./data/derived/tract/seattle_tract_boundaries.RData")
-
-seattle_tract_boundaries %>%
-  right_join(wave_data_tract) %>%
-  ggplot(aes(fill = n_dwellings)) + geom_sf() + facet_wrap(~wave)

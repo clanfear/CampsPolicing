@@ -8,6 +8,7 @@ library(lubridate)
 
 load("./data/derived/tract/seattle_tract_boundaries.RData")
 load("./data/derived/bg/seattle_bg_boundaries.RData")
+load("./data/derived/block/seattle_block_boundaries.RData")
 
 tent_census_summer_2020_raw <- readxl::read_excel("./data/raw/Master TC_TR Database 11 28 2019 Tent Census Originals Database Full Form.xlsx", 
                                                          sheet = "TR2 Encampments Unexpanded")
@@ -40,8 +41,6 @@ tent_census_summer_2020_tract <- tent_census_summer_2020 %>%
 
 save(tent_census_summer_2020_tract, file = "./data/derived/tract/tent_census_summer_2020_tract.RData")
 
-# CHECK VALIDITY OF THESE
-
 tent_census_summer_2020_bg <- tent_census_summer_2020 %>%
   st_join(seattle_bg_boundaries, join = st_nearest_feature) %>%
   st_drop_geometry()%>%
@@ -52,3 +51,14 @@ tent_census_summer_2020_bg <- tent_census_summer_2020 %>%
   mutate(across(-blockgroup, ~ ifelse(is.na(.), 0, .)))
 
 save(tent_census_summer_2020_bg, file = "./data/derived/bg/tent_census_summer_2020_bg.RData")
+
+tent_census_summer_2020_block <- tent_census_summer_2020 %>%
+  st_join(seattle_block_boundaries, join = st_nearest_feature) %>%
+  st_drop_geometry()%>%
+  select(-note) %>%
+  group_by(block) %>%
+  summarize(across(everything(), ~sum(.))) %>%
+  full_join(seattle_block_boundaries %>% st_drop_geometry() %>% select(block)) %>%
+  mutate(across(-block, ~ ifelse(is.na(.), 0, .)))
+
+save(tent_census_summer_2020_block, file = "./data/derived/block/tent_census_summer_2020_block.RData")

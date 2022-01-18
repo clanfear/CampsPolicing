@@ -7,6 +7,7 @@ library(sf)
 
 load("./data/derived/tract/seattle_tract_boundaries.RData")
 load("./data/derived/bg/seattle_bg_boundaries.RData")
+load("./data/derived/block/seattle_block_boundaries.RData")
 
 sweeps <- 
   read_csv("./data/raw/Sweeps Data - Sheet1.csv") %>%
@@ -55,6 +56,22 @@ sweeps_tract <- seattle_tract_boundaries %>%
 
 save(sweeps_tract, file = "./data/derived/tract/sweeps_tract.RData")
 
+sweeps_block <- seattle_block_boundaries %>% 
+  st_join(sweeps %>% 
+            select(geometry, 
+                   sweeps_community = ref_community, 
+                   sweeps_government = ref_government) %>% 
+            mutate(sweeps = 1)) %>% 
+  st_drop_geometry() %>%
+  replace_na(list(sweeps = 0, sweeps_community = 0, sweeps_government = 0)) %>%
+  group_by(block) %>% 
+  summarize(across(everything(),~sum(.)))
+
+save(sweeps_block, file = "./data/derived/block/sweeps_block.RData")
+
+
+# Monthly
+
 sweeps_monthly_tract <-  sweeps %>% 
   select(geometry, 
          sweeps_community = ref_community, 
@@ -87,3 +104,20 @@ sweeps_monthly_bg <-  sweeps %>%
   mutate(date = ym(paste(year, month, sep = "-"))) %>%
   select(-year, -month)
 save(sweeps_monthly_bg, file = "./data/derived/bg/sweeps_monthly_bg.RData")
+
+sweeps_monthly_block <-  sweeps %>% 
+  select(geometry, 
+         sweeps_community = ref_community, 
+         sweeps_government = ref_government,
+         date) %>% 
+  mutate(sweeps = 1,
+         year = year(date),
+         month = month(date)) %>% 
+  st_join(seattle_block_boundaries) %>% 
+  st_drop_geometry() %>%
+  group_by(block, year, month) %>% 
+  summarize(across(matches("^sweeps"), ~sum(.)), .groups = "drop") %>%
+  complete(block = seattle_block_boundaries$block, nesting(year, month), fill = list(sweeps = 0, sweeps_community = 0, sweeps_government = 0)) %>%
+  mutate(date = ym(paste(year, month, sep = "-"))) %>%
+  select(-year, -month)
+save(sweeps_monthly_block, file = "./data/derived/block/sweeps_monthly_block.RData")

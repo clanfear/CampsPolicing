@@ -3,6 +3,7 @@ library(sf)
 
 load("./data/derived/tract/seattle_tract_boundaries.RData")
 load("./data/derived/bg/seattle_bg_boundaries.RData")
+load("./data/derived/block/seattle_block_boundaries.RData")
 
 sanctioned_camps_2019 <- 
   readxl::read_excel("./data/raw/City-Sanctioned Tiny House Villages and Tent Encampments Spring and Summer 2019.xlsx")  %>%
@@ -41,3 +42,11 @@ sanctioned_camps_bg_2019 <- seattle_bg_boundaries   %>%
   mutate(any_village = ifelse(type != "None", "Village", "None"))
 
 save(sanctioned_camps_bg_2019, file = "./data/derived/bg/sanctioned_camps_bg_2019.RData")
+
+sanctioned_camps_block_2019 <- seattle_block_boundaries   %>%
+  st_join(sanctioned_camps_2019) %>%
+  replace_na(list(count = 0, type = "None")) %>%
+  st_drop_geometry() %>%
+  mutate(any_village = ifelse(type != "None", "Village", "None"))
+
+save(sanctioned_camps_block_2019, file = "./data/derived/block/sanctioned_camps_block_2019.RData")

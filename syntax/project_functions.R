@@ -9,3 +9,6 @@ first_mode <- function(x) {
   ux[which.max(tabulate(match(x, ux)))]
 }
 
+log_na <- \(x){
+  return(ifelse(is.na(x) | x <= 0, NA, log(x)))
+}

@@ -15,9 +15,10 @@ data_dates <- tribble(~source, ~group, ~start, ~end,
   bind_rows(
     tribble(~source, ~group, ~start, ~end,
             "SPD Crime", 4, min(spd_public_geo$date), max(spd_public_geo$date),
-            "SPD Survey", 5, min(spd_survey$call_date), max(spd_survey$call_date),
-            "Sweeps", 6, min(sweeps$date), max(sweeps$date),
-            "CSB Complaints", 7, min(as.Date(unauthorized_camping_complaints$created_date)), max(as.Date(unauthorized_camping_complaints$created_date)),
+            "SPD Survey", 7, min(spd_survey$call_date), max(spd_survey$call_date),
+            "Tent Cities", 8, ymd("2019-04-01"), ymd("2019-09-01"),
+            "Sweeps", 5, min(sweeps$date), max(sweeps$date),
+            "CSB Complaints", 6, min(as.Date(unauthorized_camping_complaints$created_date)), max(as.Date(unauthorized_camping_complaints$created_date)),
             )
   ) %>%
   mutate(start = if_else(start < as.Date("2016-01-01"), 
@@ -26,7 +27,9 @@ data_dates <- tribble(~source, ~group, ~start, ~end,
          end = if_else(end > as.Date("2020-12-31"), 
                        as.Date("2020-12-31"),
                        end)) %>%
-  pivot_longer(c(start, end))
+  pivot_longer(c(start, end)) %>%
+  mutate(source = fct_relevel(source,
+                              "Tent Cities", "SPD Survey", "SPD Crime", "Sweeps", "CSB Complaints", "Tent Census"))
 
 save(data_dates, file = "./data/derived/other/data_dates.RData")
 
